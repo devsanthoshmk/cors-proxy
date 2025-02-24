@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>corsproxyit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2A3B4D;    /* Deep Navy */
+            --secondary: #B38B6D;  /* Warm Taupe */
+            --accent: #5C8CA7;     /* Soft Teal */
+            --bg: #F5F7FA;         /* Light Gray */
+            --text: #2A3B4D;        /* Dark Navy */
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            font-family: 'Inter', system-ui;
+            background: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            margin: 1.5rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        h1 { 
+            font-size: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-top: 3rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            background: rgba(255,255,255,0.9);
+            padding: 1.25rem;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        p {
+            color: #66758A;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.6s ease-out;
+        }
+
+        .whitelist_table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            margin: 3rem 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            border-radius: 8px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .whitelist_table td {
+            padding: 1rem;
+            border-bottom: 1px solid #F0F2F5;
+            transition: background 0.2s ease;
+        }
+
+        .whitelist_table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .whitelist_table tr:hover td {
+            background: #F9FAFC;
+        }
+
+        .visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        .geometric-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--primary) 1px, transparent 1px),
+                linear-gradient(90deg, var(--primary) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .info-link {
+            color: var(--primary);
+            margin: 1.5rem 0;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .info-link a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .info-link a:hover {
+            border-bottom-color: var(--accent);
+            opacity: 0.9;
+        }
+    </style>
+
+    <!-- footer style tag -->
+     <style>
+        .site-footer {
+            border-top: 1px solid rgba(42, 59, 77, 0.1);
+            margin-top: 4rem;
+            padding: 2rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-text {
+            color: var(--primary);
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 1 !important; /* Force text visibility */
+            transform: none !important;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .social-links a {
+            color: var(--accent);
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        /* Add this to override animation for footer text */
+        .site-footer.visible .footer-text {
+            opacity: 1;
+            transform: none;
+        }
+        
+     </style>
+</head>
+<body>
+    <div class="geometric-pattern"></div>
+    <div class="content-wrapper">
+        <h1>USE CASE</h1>
+        <h3>curl "https://corsproxyit.pythonanywhere.com/fetch?url=https://*"</h3>
+        <p>* Refers only to sites listed below</p>
+        
+        <h2>EXAMPLE</h2>
+        <h3>curl "https://corsproxyit.pythonanywhere.com/fetch?url=https://www.google.com"</h3>
+        
+        <h1>Allowed Domains</h1>
+<p class="info-link">View complete whitelist on PythonAnywhere: 
+    <a href="https://www.pythonanywhere.com/whitelist/" target="_blank" rel="noopener noreferrer">
+        PythonAnywhere Whitelist
+    </a>
+</p>
+
+
+
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p class="footer-text"><a href="https://github.com/devsanthoshmk/cors-proxy" style="text-decoration: none;"> Open Source Project</a></p>
+            <div class="social-links">
+                <a href="https://github.com/devsanthoshmk" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/santhosh-m-k" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://www.instagram.com/mksantho.sh?igsh=ODllenpod3FmMm16" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { 
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe all elements
+        document.querySelectorAll('h1, h2, h3, p, .whitelist_table, .info-link, .site-footer, .footer-text')
+        .forEach(el => observer.observe(el));
+
+        // Add slight animation delay to elements
+        document.querySelectorAll('h1, h2, h3, p').forEach((el, index) => {
+            el.style.transitionDelay = `${index * 0.1}s`;
+        });
+    });
+    </script>
+</body>
+</html>

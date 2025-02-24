@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Terminal container style */
+    .terminal {
+      background: #1a1a1a;
+      padding: 2rem;
+      border-radius: 15px;
+      margin: 2rem 0;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Terminal text styling */
+    .terminal-text {
+      font-family: monospace;
+      color: #00ff00;
+      white-space: nowrap;
+      overflow: hidden; /* ensures text hides while typing */
+      font-size: 1.2rem;
+      padding: 0.5rem;
+      /* Show the cursor initially */
+      border-right: 3px solid #00ff00;
+      /* Ensure the element's width is controlled by the animation */
+      width: 0;
+    }
+    
+    /* Typing animation:
+       - At 0%: width is 0 and border-right is visible.
+       - At 1%: border-right becomes transparent.
+       - From there on: width animates to 100% with the cursor hidden.
+    */
+    @keyframes typing {
+      0% {
+        width: 0;
+        border-right-color: #00ff00;
+      }
+      1% {
+        width: 0;
+        border-right-color: transparent;
+      }
+      100% {
+        width: 100%;
+        border-right-color: transparent;
+      }
+    }
+    
+    /* When .terminal-text has the class "visible", apply the typing animation */
+    .terminal-text.visible {
+      animation: typing 7s steps(50, end) forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <div class="terminal-text visible">
+      curl "https://corsproxyit.pythonanywhere.com/fetch?url=https://*"
+    </div>
+  </div>
+</body>
+</html>
